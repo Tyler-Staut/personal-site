@@ -13,6 +13,12 @@ export default defineConfig({
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/Tyler-Staut' },
       ],
+      head: [
+        {
+          tag: 'link',
+          attrs: { rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
+        },
+      ],
       sidebar: [
         {
           label: 'Notes',
