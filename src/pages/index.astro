@@ -1,6 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import { getCollection } from 'astro:content';
 import tylerImage from '../assets/tyler.png';
 interface BskyPost {
   text: string;
@@ -10,6 +11,9 @@ interface BskyPost {
 }
 
 let posts: BskyPost[] = [];
+const latestBlog = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 
 try {
   const res = await fetch(
@@ -94,31 +98,74 @@ const frontmatter = {
     </Card>
   </CardGrid>
 
-  <section class="latest-posts">
+  <section class="latest-blog">
+    <h2>Latest Posts</h2>
+    <ul class="post-list">
+      {latestBlog.map((post) => (
+        <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li>
+      ))}
+    </ul>
+    <p class="archive-link"><a href="/blog/">View all →</a></p>
+  </section>
+
+  <section class="latest-bluesky">
     <h2>Latest Bluesky Posts</h2>
     {posts.length === 0 ? (
       <p>No Bluesky posts yet.</p>
     ) : (
-      <CardGrid>
+      <ul class="bsky-list">
         {posts.map((post) => (
-          <a
-            class="bsky-card"
-            href={post.url}
-            style={post.image ? `background-image: url(${post.image})` : undefined}
-          >
-            <p>{post.text}</p>
-            <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
-          </a>
+          <li>
+            <a
+              class="bsky-card"
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={post.image ? `--bg-image: url('${post.image}')` : undefined}
+            >
+              <p>{post.text}</p>
+              <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
+            </a>
+          </li>
         ))}
-      </CardGrid>
+      </ul>
     )}
-    <p style="text-align: right;"><a href="https://bsky.app/profile/tylerstaut.com">View more →</a></p>
+    <p class="archive-link"><a href="https://bsky.app/profile/tylerstaut.com">View more →</a></p>
   </section>
 </StarlightPage>
 
 <style>
-  .latest-posts {
+  .latest-blog,
+  .latest-bluesky {
     margin-top: 2rem;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .archive-link {
+    text-align: right;
+  }
+
+  .bsky-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 50rem) {
+    .bsky-list {
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    }
   }
 
   .bsky-card {
@@ -126,25 +173,31 @@ const frontmatter = {
     position: relative;
     border-radius: 0.5rem;
     overflow: hidden;
+    min-height: 10rem;
     padding: 1rem;
     color: var(--sl-color-white);
     text-decoration: none;
     background-color: var(--sl-color-gray-6);
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
     box-shadow: var(--sl-shadow-sm);
   }
+
   .bsky-card::before {
     content: '';
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
   }
+
   .bsky-card p,
   .bsky-card time {
     position: relative;
     margin: 0;
   }
+
   .bsky-card time {
     display: block;
     margin-top: 0.5rem;
