@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from '@astrojs/starlight';
 import cloudflare from "@astrojs/cloudflare";
+import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,6 +40,7 @@ export default defineConfig({
         },
       ],
     }),
+    icon(),
   ],
   adapter: cloudflare({
     platformProxy: {
@@ -47,7 +49,7 @@ export default defineConfig({
   }),
   vite: {
     ssr: {
-      noExternal: ['free-astro-components'],
+      noExternal: ['free-astro-components', 'astro-icon'],
     },
   },
 });

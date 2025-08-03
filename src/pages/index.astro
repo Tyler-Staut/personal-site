@@ -1,6 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card } from '@astrojs/starlight/components';
+import { Icon } from 'astro-icon/components';
 import tylerImage from '../assets/tyler.png';
 
 const frontmatter = {
@@ -19,8 +20,8 @@ const frontmatter = {
 };
 ---
 <StarlightPage frontmatter={frontmatter} hasSidebar={false}>
-  <CardGrid stagger>
-    <Card title="About" icon="information" href="/about/">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <Card class="flex flex-col" title="About" icon="information" href="/about/">
       I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.
       <br /><br />
       I am using this to help me on my journey and will include a lot of information I find useful.
@@ -28,7 +29,7 @@ const frontmatter = {
       Whether you're here for tips on security or just curious about my projects, I hope you'll find something that sparks your interest!
     </Card>
 
-    <Card title="Projects" icon="rocket" href="/projects/">
+    <Card class="flex flex-col" title="Projects" icon="rocket" href="/projects/">
       A few things I’m building:
       <ul>
         <li>Cloudflare Workers</li>
@@ -40,18 +41,20 @@ const frontmatter = {
       </ul>
     </Card>
 
-    <Card title="Contact" icon="email" href="/contact/">
-      <small style="display: flex; gap: 8px; align-items: center;">
-        <a href="https://linkedin.com/in/Tyler-Staut" style="display: flex; align-items: center; gap: 4px;">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg" alt="LinkedIn" style="width: 16px; height: 16px;" /> LinkedIn
-        </a> -
-        <a href="https://github.com/Tyler-Staut" style="display: flex; align-items: center; gap: 4px;">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" alt="GitHub" style="width: 16px; height: 16px;" /> GitHub
-        </a> -
-        <a href="https://bsky.app/profile/tylerstaut.com" style="display: flex; align-items: center; gap: 4px;">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" style="width: 16px; height: 16px;" /> Bluesky
+    <Card class="flex flex-col" title="Contact" icon="email" href="/contact/">
+      <small class="flex items-center gap-2">
+        <a href="https://linkedin.com/in/Tyler-Staut" class="flex items-center gap-1">
+          <Icon name="simple-icons:linkedin" size="24" /> LinkedIn
+        </a>
+        -
+        <a href="https://github.com/Tyler-Staut" class="flex items-center gap-1">
+          <Icon name="simple-icons:github" size="24" /> GitHub
+        </a>
+        -
+        <a href="https://bsky.app/profile/tylerstaut.com" class="flex items-center gap-1">
+          <Icon name="simple-icons:bluesky" size="24" /> Bluesky
         </a>
       </small>
     </Card>
-  </CardGrid>
+  </div>
 </StarlightPage>
