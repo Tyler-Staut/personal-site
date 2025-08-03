@@ -1,5 +1,5 @@
 ---
-import BlogLayout from '../../layouts/BlogLayout.astro';
+import PostLayout from '../../layouts/PostLayout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,12 +12,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const wordCount = post.body ? post.body.split(/\s+/g).length : 0;
+const readingTime = `${Math.ceil(wordCount / 200)} min read`;
 ---
-<BlogLayout title={post.data.title}>
-  <article>
-    {post.data.publishDate && (
-      <p><time datetime={post.data.publishDate}>{post.data.publishDate}</time></p>
-    )}
-    <Content />
-  </article>
-</BlogLayout>
+<PostLayout {...post.data} readingTime={readingTime}>
+  <Content />
+</PostLayout>
+
+<div style="display:flex;flex-wrap:wrap;gap:0.5rem;font-size:0.875rem;color:var(--sl-color-text-secondary);">
+      {readingTime && <span>{readingTime}</span>}
+    </div>
