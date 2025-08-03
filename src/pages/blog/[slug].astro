@@ -15,8 +15,9 @@ const { Content } = await post.render();
 ---
 <BlogLayout title={post.data.title}>
   <article>
-    <h1>{post.data.title}</h1>
-    {post.data.date && <p><time datetime={post.data.date}>{post.data.date}</time></p>}
+    {post.data.publishDate && (
+      <p><time datetime={post.data.publishDate}>{post.data.publishDate}</time></p>
+    )}
     <Content />
   </article>
 </BlogLayout>

@@ -1,17 +1,17 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
+import { Card, CardGrid } from '@astrojs/starlight/components';
 const posts = await getCollection('blog');
 ---
 <BlogLayout title="Blog">
-  <h1>Blog</h1>
   {posts.length === 0 ? (
     <p>No posts yet.</p>
   ) : (
-    <ul>
+    <CardGrid>
       {posts.map((post) => (
-        <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li>
+        <Card title={post.data.title} description={post.data.description} href={`/blog/${post.slug}/`} />
       ))}
-    </ul>
+    </CardGrid>
   )}
 </BlogLayout>
