@@ -1,0 +1,20 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import MarkdownContent from '@astrojs/starlight/components/MarkdownContent.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<StarlightPage frontmatter={{ title: 'Blog', description: 'Updates and stories from my projects and travels.' }}>
+  <MarkdownContent>
+    <p>Welcome to the blog! Posts will appear here soon.</p>
+  </MarkdownContent>
+  {posts.length > 0 && (
+    <ul>
+      {posts.map((post) => (
+        <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li>
+      ))}
+    </ul>
+  )}
+</StarlightPage>
