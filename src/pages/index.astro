@@ -2,6 +2,40 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import tylerImage from '../assets/tyler.png';
+interface BskyPost {
+  text: string;
+  createdAt: string;
+  url: string;
+}
+
+let posts: BskyPost[] = [];
+
+try {
+  const res = await fetch(
+    'https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=tylerstaut.com&limit=3'
+  );
+  if (res.ok) {
+    const data = await res.json();
+    posts = data.feed.map(({ post }: any) => {
+      const rkey = post.uri.split('/').pop();
+      return {
+        text: post.record.text,
+        createdAt: post.record.createdAt,
+        url: `https://bsky.app/profile/${post.author.handle}/post/${rkey}`
+      };
+    });
+  }
+} catch (err) {
+  console.error('Failed to fetch Bluesky posts', err);
+}
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
 
 const frontmatter = {
   title: 'Tyler Staut',
@@ -54,4 +88,26 @@ const frontmatter = {
       </small>
     </Card>
   </CardGrid>
+
+  <section class="latest-posts">
+    <h2>Latest Bluesky Posts</h2>
+    {posts.length === 0 ? (
+      <p>No Bluesky posts yet.</p>
+    ) : (
+      <CardGrid>
+        {posts.map((post) => (
+          <Card href={post.url} title={formatDate(post.createdAt)}>
+            <p>{post.text}</p>
+          </Card>
+        ))}
+      </CardGrid>
+    )}
+    <p style="text-align: right;"><a href="https://bsky.app/profile/tylerstaut.com">View more →</a></p>
+  </section>
 </StarlightPage>
+
+<style>
+  .latest-posts {
+    margin-top: 2rem;
+  }
+</style>
