@@ -8,8 +8,8 @@ const frontmatter = {
   description: 'Traveler • Hacker • CTF Junkie',
   template: 'splash',
   hero: {
-    title: 'Hey — I\u2019m Tyler',
-    tagline: 'Breaking things so you don\u2019t have to\u2014securely, of course!<br />Probably doing a <a href="https://careerlimitingmaneuver.com" target="_blank" rel="noopener noreferrer">Career Limiting Maneuver</a>.',
+    title: 'Hey! I\u2019m Tyler',
+    tagline: 'Boldly going where no hacker has gone before<br />Probably doing a <a href="https://careerlimitingmaneuver.com" target="_blank" rel="noopener noreferrer">Career Limiting Maneuver</a>',
     image: { file: tylerImage, alt: 'Tyler Staut head-shot' },
     actions: [
       { text: 'Read my Blog', link: '/blog/', icon: 'rss', variant: 'secondary' },
@@ -41,10 +41,16 @@ const frontmatter = {
     </Card>
 
     <Card title="Contact" icon="email" href="/contact/">
-      <small>
-        <a href="https://linkedin.com/in/Tyler-Staut">LinkedIn</a> ·
-        <a href="https://github.com/Tyler-Staut">GitHub</a> ·
-        <a href="https://bsky.app/profile/tylerstaut.com">Bluesky</a>
+      <small style="display: flex; gap: 8px; align-items: center;">
+        <a href="https://linkedin.com/in/Tyler-Staut" style="display: flex; align-items: center; gap: 4px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg" alt="LinkedIn" style="width: 16px; height: 16px;" /> LinkedIn
+        </a> -
+        <a href="https://github.com/Tyler-Staut" style="display: flex; align-items: center; gap: 4px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" alt="GitHub" style="width: 16px; height: 16px;" /> GitHub
+        </a> -
+        <a href="https://bsky.app/profile/tylerstaut.com" style="display: flex; align-items: center; gap: 4px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" style="width: 16px; height: 16px;" /> Bluesky
+        </a>
       </small>
     </Card>
   </CardGrid>

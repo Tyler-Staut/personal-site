@@ -14,7 +14,11 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Docs',
+          label: 'Notes',
+          autogenerate: { directory: 'notes' },
+        },
+        {
+          label: 'Cloud',
           autogenerate: { directory: 'cloud' },
         },
         {
@@ -32,10 +36,6 @@ export default defineConfig({
         {
           label: 'CTF',
           autogenerate: { directory: 'ctf' },
-        },
-        {
-          label: 'Notes',
-          autogenerate: { directory: 'notes' },
         },
       ],
     }),
