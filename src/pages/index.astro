@@ -1,6 +1,6 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Card } from '@astrojs/starlight/components';
+import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import tylerImage from '../assets/tyler.png';
 
@@ -20,7 +20,7 @@ const frontmatter = {
 };
 ---
 <StarlightPage frontmatter={frontmatter} hasSidebar={false}>
-  <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+  <CardGrid stagger>
     <Card class="flex flex-col" title="About" icon="information" href="/about/">
       I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.
       <br /><br />
@@ -41,20 +41,20 @@ const frontmatter = {
       </ul>
     </Card>
 
-    <Card class="flex flex-col" title="Contact" icon="email" href="/contact/">
+    <Card class="flex flex-col" title="Contact" icon="email">
       <small class="flex items-center gap-2">
-        <a href="https://linkedin.com/in/Tyler-Staut" class="flex items-center gap-1">
+        <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center gap-1 no-underline text-current">
           <Icon name="simple-icons:linkedin" size="24" /> LinkedIn
         </a>
-        -
-        <a href="https://github.com/Tyler-Staut" class="flex items-center gap-1">
+        <span aria-hidden="true">|</span>
+        <a href="https://github.com/Tyler-Staut" class="inline-flex items-center gap-1 no-underline text-current">
           <Icon name="simple-icons:github" size="24" /> GitHub
         </a>
-        -
-        <a href="https://bsky.app/profile/tylerstaut.com" class="flex items-center gap-1">
+        <span aria-hidden="true">|</span>
+        <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center gap-1 no-underline text-current">
           <Icon name="simple-icons:bluesky" size="24" /> Bluesky
         </a>
       </small>
     </Card>
-  </div>
+  </CardGrid>
 </StarlightPage>
