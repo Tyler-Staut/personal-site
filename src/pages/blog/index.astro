@@ -1,0 +1,62 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+---
+<BlogLayout title="Blog">
+  {posts.length === 0 ? (
+    <p>No posts yet.</p>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li class="post-item">
+          <a class="post-link" href={`/blog/${post.slug}/`}>
+            <h2>{post.data.title}</h2>
+            {post.data.description && <p>{post.data.description}</p>}
+            {post.data.publishDate && (
+              <time datetime={post.data.publishDate}>{formatDate(post.data.publishDate)}</time>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</BlogLayout>
+
+<style>
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.post-item {
+  border: 1px solid var(--sl-color-border);
+  border-radius: 8px;
+  background: var(--sl-color-bg);
+}
+.post-link {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+.post-link h2 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+}
+.post-link p {
+  margin: 0 0 0.5rem 0;
+  color: var(--sl-color-text-secondary);
+}
+</style>

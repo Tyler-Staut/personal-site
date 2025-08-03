@@ -1,0 +1,51 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import tylerImage from '../assets/tyler.png';
+
+const frontmatter = {
+  title: 'Tyler Staut',
+  description: 'Traveler • Hacker • CTF Junkie',
+  template: 'splash',
+  hero: {
+    title: 'Hey — I\u2019m Tyler',
+    tagline: 'Breaking things so you don\u2019t have to\u2014securely, of course!<br />Probably doing a <a href="https://careerlimitingmaneuver.com" target="_blank" rel="noopener noreferrer">Career Limiting Maneuver</a>.',
+    image: { file: tylerImage, alt: 'Tyler Staut head-shot' },
+    actions: [
+      { text: 'Read my Blog', link: '/blog/', icon: 'rss', variant: 'secondary' },
+      { text: 'Dive into my Docs', link: '/notes/', icon: 'right-arrow' }
+    ]
+  }
+};
+---
+<StarlightPage frontmatter={frontmatter} hasSidebar={false}>
+  <CardGrid stagger>
+    <Card title="About" icon="information" href="/about/">
+      I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.
+      <br /><br />
+      I am using this to help me on my journey and will include a lot of information I find useful.
+      <br /><br />
+      Whether you're here for tips on security or just curious about my projects, I hope you'll find something that sparks your interest!
+    </Card>
+
+    <Card title="Projects" icon="rocket" href="/projects/">
+      A few things I’m building:
+      <ul>
+        <li>Cloudflare Workers</li>
+        <li>Home lab project</li>
+        <li>CTF write-ups</li>
+        <li>Security tools</li>
+        <li>Discord Bot stuff</li>
+        <li>And more!</li>
+      </ul>
+    </Card>
+
+    <Card title="Contact" icon="email" href="/contact/">
+      <small>
+        <a href="https://linkedin.com/in/Tyler-Staut">LinkedIn</a> ·
+        <a href="https://github.com/Tyler-Staut">GitHub</a> ·
+        <a href="https://bsky.app/profile/tylerstaut.com">Bluesky</a>
+      </small>
+    </Card>
+  </CardGrid>
+</StarlightPage>
