@@ -1,0 +1,52 @@
+---
+title: Tyler Staut
+description: Product-security engineer • homelab builder • CTF junkie
+template: splash
+hero:
+  title: Hey — I’m Tyler
+  tagline: >-
+    Breaking things so you don’t have to—securely, of course!<br />
+    Probably doing a <a href="https://careerlimitingmaneuver.com" target="_blank" rel="noopener noreferrer">Career Limiting Maneuver</a>.
+  image:
+    file: ../../assets/tyler.png
+    alt: Tyler Staut head-shot
+  actions:
+    - text: Read the Blog
+      link: /blog/example/
+      icon: rss
+      variant: secondary
+    - text: Dive into the Docs
+      link: /guides/example/
+      icon: right-arrow
+---
+
+import { Card, CardGrid, Icon } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="About" icon="information" href="/about/">
+    I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.
+
+	I am using this to help me on my journey and will include a lot of information I find useful. 
+	
+	Whether you're here for tips on security or just curious about my projects, I hope you'll find something that sparks your interest!
+  </Card>
+
+  <Card title="Projects" icon="rocket" href="/projects/">
+    A few things I’m building:
+	  - Cloudflare Workers<br />
+	  - Home lab project<br />
+	  - CTF write-ups<br />
+	  - Security tools<br />
+	  - Discord Bot stuff<br />
+	  - And more!
+  </Card>
+
+  <Card title="Contact" icon="email" href="/contact/">
+    <small>
+      <a href="https://linkedin.com/in/Tyler-Staut">LinkedIn</a> ·
+      <a href="https://github.com/Tyler-Staut">GitHub</a> ·
+      <a href="https://bsky.app/profile/tylerstaut.com">Bluesky</a>
+    </small>
+  </Card>
+</CardGrid>
+

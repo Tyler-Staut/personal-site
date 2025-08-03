@@ -1,17 +1,33 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
-
+import starlight from '@astrojs/starlight';
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
-  integrations: [mdx(), sitemap()],
+  site: "https://tylerstaut.com",
+  integrations: [
+    starlight({
+      title: 'Tyler Staut',
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/Tyler-Staut' },
+      ],
+      sidebar: [
+        {
+          label: 'Docs',
+          autogenerate: { directory: 'docs' },
+        },
+        {
+          label: 'Blog',
+          autogenerate: { directory: 'blog' },
+        },
+      ],
+    }),
+  ],
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
   }),
 });
+
