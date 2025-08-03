@@ -42,18 +42,18 @@ const frontmatter = {
     </Card>
 
     <Card class="flex flex-col" title="Contact" icon="email">
-      <small class="flex items-center gap-2">
-        <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center gap-1 no-underline text-current">
-          <Icon name="simple-icons:linkedin" size="24" /> LinkedIn
-        </a>
-        <span aria-hidden="true">|</span>
-        <a href="https://github.com/Tyler-Staut" class="inline-flex items-center gap-1 no-underline text-current">
-          <Icon name="simple-icons:github" size="24" /> GitHub
-        </a>
-        <span aria-hidden="true">|</span>
-        <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center gap-1 no-underline text-current">
-          <Icon name="simple-icons:bluesky" size="24" /> Bluesky
-        </a>
+      <small class="flex items-center gap-2 flex-row whitespace-nowrap w-full" style="display:block;">
+        <span style="display:flex;align-items:center;gap:0.75rem;">
+          <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="LinkedIn">
+            <Icon name="simple-icons:linkedin" size="30" style="color:currentColor;" />
+          </a>
+          <a href="https://github.com/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="GitHub">
+            <Icon name="simple-icons:github" size="30" style="color:currentColor;" />
+          </a>
+          <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="Bluesky">
+            <Icon name="simple-icons:bluesky" size="30" style="color:currentColor;" />
+          </a>
+        </span>
       </small>
     </Card>
   </CardGrid>
