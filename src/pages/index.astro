@@ -6,6 +6,7 @@ interface BskyPost {
   text: string;
   createdAt: string;
   url: string;
+  image?: string;
 }
 
 let posts: BskyPost[] = [];
@@ -18,10 +19,14 @@ try {
     const data = await res.json();
     posts = data.feed.map(({ post }: any) => {
       const rkey = post.uri.split('/').pop();
+      const image =
+        post.embed?.images?.[0]?.thumb ||
+        post.embed?.media?.images?.[0]?.thumb;
       return {
         text: post.record.text,
         createdAt: post.record.createdAt,
-        url: `https://bsky.app/profile/${post.author.handle}/post/${rkey}`
+        url: `https://bsky.app/profile/${post.author.handle}/post/${rkey}`,
+        image
       };
     });
   }
@@ -96,9 +101,14 @@ const frontmatter = {
     ) : (
       <CardGrid>
         {posts.map((post) => (
-          <Card href={post.url} title={formatDate(post.createdAt)}>
+          <a
+            class="bsky-card"
+            href={post.url}
+            style={post.image ? `background-image: url(${post.image})` : undefined}
+          >
             <p>{post.text}</p>
-          </Card>
+            <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
+          </a>
         ))}
       </CardGrid>
     )}
@@ -109,5 +119,36 @@ const frontmatter = {
 <style>
   .latest-posts {
     margin-top: 2rem;
+  }
+
+  .bsky-card {
+    display: block;
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 1rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    background-color: var(--sl-color-gray-6);
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--sl-shadow-sm);
+  }
+  .bsky-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .bsky-card p,
+  .bsky-card time {
+    position: relative;
+    margin: 0;
+  }
+  .bsky-card time {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
   }
 </style>
