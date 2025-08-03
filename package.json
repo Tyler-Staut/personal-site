@@ -24,6 +24,7 @@
     "@astrojs/sitemap": "3.4.1",
     "@astrojs/starlight": "^0.35.2",
     "astro": "5.12.8",
+    "free-astro-components": "^1.2.1",
     "sharp": "^0.34.3",
     "typescript": "5.8.3"
   },

@@ -15,11 +15,27 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Docs',
-          autogenerate: { directory: 'docs' },
+          autogenerate: { directory: 'cloud' },
         },
         {
-          label: 'Blog',
-          autogenerate: { directory: 'blog' },
+          label: 'Tools',
+          autogenerate: { directory: 'tools' },
+        },
+        {
+          label: 'Pentesting',
+          autogenerate: { directory: 'pentesting' },
+        },
+        {
+          label: 'LeetCode',
+          autogenerate: { directory: 'leetcode' },
+        },
+        {
+          label: 'CTF',
+          autogenerate: { directory: 'ctf' },
+        },
+        {
+          label: 'Notes',
+          autogenerate: { directory: 'notes' },
         },
       ],
     }),
@@ -29,5 +45,10 @@ export default defineConfig({
       enabled: true,
     },
   }),
+  vite: {
+    ssr: {
+      noExternal: ['free-astro-components'],
+    },
+  },
 });
 
