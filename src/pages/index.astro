@@ -3,6 +3,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import tylerImage from '../assets/tyler.png';
+import { getCollection } from 'astro:content';
 interface BskyPost {
   text: string;
   createdAt: string;
