@@ -98,18 +98,14 @@ const frontmatter = {
     </Card>
   </CardGrid>
 
-  <section class="latest-blog">
-    <h2>Latest Posts</h2>
-    <ul class="post-list">
-      {latestBlog.map((post) => (
-        <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li>
-      ))}
-    </ul>
-    <p class="archive-link"><a href="/blog/">View all →</a></p>
-  </section>
-
   <section class="latest-bluesky">
-    <h2>Latest Bluesky Posts</h2>
+    <h2 style="display: flex; color:inherit; align-items: center; gap: 0.5em; font-size: 1.5rem;">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" style="width: 1.5em; height: 1.5em; vertical-align: middle;" />
+      <span>From Bluesky</span>
+    </h2>
+    <p style="color:inherit;" margin-top: 0; margin-bottom: 1rem; font-size: 1rem;">
+      A peek at my latest posts on <a href="https://bsky.app/profile/tylerstaut.com" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">Bluesky</a>.
+    </p>
     {posts.length === 0 ? (
       <p>No Bluesky posts yet.</p>
     ) : (
@@ -130,7 +126,6 @@ const frontmatter = {
         ))}
       </ul>
     )}
-    <p class="archive-link"><a href="https://bsky.app/profile/tylerstaut.com">View more →</a></p>
   </section>
 </StarlightPage>
 
