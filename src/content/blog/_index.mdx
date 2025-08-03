@@ -1,0 +1,18 @@
+---
+title: Blog
+description: Recent posts and updates
+setup: |
+  import { getCollection } from 'astro:content';
+  import { Card, CardGrid } from '@astrojs/starlight/components';
+  import { Button } from 'free-astro-components';
+  const posts = (await getCollection('blog')).filter((p) => p.id !== '_index');
+---
+
+<CardGrid>
+  {posts.map((post) => (
+    <Card title={post.data.title} icon="document">
+      <p>{post.data.description}</p>
+      <Button href={`/blog/${post.slug}/`} label="Read more" icon="tabler:arrow-right" />
+    </Card>
+  ))}
+</CardGrid>

@@ -2,11 +2,13 @@
 import { defineConfig } from "astro/config";
 import starlight from '@astrojs/starlight';
 import cloudflare from "@astrojs/cloudflare";
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://tylerstaut.com",
   integrations: [
+    tailwind(),
     starlight({
       title: 'Tyler Staut',
       social: [
