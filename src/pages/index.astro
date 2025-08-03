@@ -3,6 +3,49 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import tylerImage from '../assets/tyler.png';
+import { getCollection } from 'astro:content';
+interface BskyPost {
+  text: string;
+  createdAt: string;
+  url: string;
+  image?: string;
+}
+
+let posts: BskyPost[] = [];
+const latestBlog = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+try {
+  const res = await fetch(
+    'https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=tylerstaut.com&limit=3'
+  );
+  if (res.ok) {
+    const data = await res.json();
+    posts = data.feed.map(({ post }: any) => {
+      const rkey = post.uri.split('/').pop();
+      const image =
+        post.embed?.images?.[0]?.thumb ||
+        post.embed?.media?.images?.[0]?.thumb;
+      return {
+        text: post.record.text,
+        createdAt: post.record.createdAt,
+        url: `https://bsky.app/profile/${post.author.handle}/post/${rkey}`,
+        image
+      };
+    });
+  }
+} catch (err) {
+  console.error('Failed to fetch Bluesky posts', err);
+}
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
 
 const frontmatter = {
   title: 'Tyler Staut',
@@ -57,4 +100,106 @@ const frontmatter = {
       </small>
     </Card>
   </CardGrid>
+
+  <section class="latest-bluesky">
+    <h2 style="display: flex; color:inherit; align-items: center; gap: 0.5em; font-size: 1.5rem;">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" style="width: 1.5em; height: 1.5em; vertical-align: middle;" />
+      <span>From Bluesky</span>
+    </h2>
+    <p style="color:inherit;" margin-top: 0; margin-bottom: 1rem; font-size: 1rem;">
+      A peek at my latest posts on <a href="https://bsky.app/profile/tylerstaut.com" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">Bluesky</a>.
+    </p>
+    {posts.length === 0 ? (
+      <p>No Bluesky posts yet.</p>
+    ) : (
+      <ul class="bsky-list">
+        {posts.map((post) => (
+          <li>
+            <a
+              class="bsky-card"
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={post.image ? `--bg-image: url('${post.image}')` : undefined}
+            >
+              <p>{post.text}</p>
+              <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
 </StarlightPage>
+
+<style>
+  .latest-blog,
+  .latest-bluesky {
+    margin-top: 2rem;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .archive-link {
+    text-align: right;
+  }
+
+  .bsky-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 50rem) {
+    .bsky-list {
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    }
+  }
+
+  .bsky-card {
+    display: block;
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    min-height: 10rem;
+    padding: 1rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    background-color: var(--sl-color-gray-6);
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--sl-shadow-sm);
+  }
+
+  .bsky-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  }
+
+  .bsky-card p,
+  .bsky-card time {
+    position: relative;
+    margin: 0;
+  }
+
+  .bsky-card time {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+  }
+</style>
