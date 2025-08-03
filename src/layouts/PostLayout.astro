@@ -8,9 +8,6 @@ export interface Props {
     name?: string;
     avatar?: string;
   };
-  publishDate?: string;
-  updatedDate?: string;
-  tags?: string[];
   readingTime?: string;
 }
 
@@ -32,21 +29,8 @@ const frontmatter = { title, tableOfContents: false };
       </div>
     )}
     <div style="display:flex;flex-wrap:wrap;gap:0.5rem;font-size:0.875rem;color:var(--sl-color-text-secondary);">
-      {publishDate && (
-        <time datetime={publishDate}>Published {publishDate}</time>
-      )}
-      {updatedDate && (
-        <time datetime={updatedDate}>Updated {updatedDate}</time>
-      )}
       {readingTime && <span>{readingTime}</span>}
     </div>
-    {tags.length > 0 && (
-      <ul style="display:flex;gap:0.5rem;margin-top:0.5rem;padding:0;list-style:none;">
-        {tags.map((tag) => (
-          <li style="background:var(--sl-color-gray-2);padding:0.25rem 0.5rem;border-radius:0.25rem;" class="tag">{tag}</li>
-        ))}
-      </ul>
-    )}
   </header>
   <article>
     <slot />

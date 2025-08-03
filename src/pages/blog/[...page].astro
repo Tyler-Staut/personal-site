@@ -34,19 +34,7 @@ function formatDate(date: string) {
               {post.data.description && (
                 <p class="post-excerpt">{post.data.description}</p>
               )}
-              {post.data.publishDate && (
-                <time datetime={post.data.publishDate}>
-                  {formatDate(post.data.publishDate)}
-                </time>
-              )}
             </a>
-            {post.data.tags && (
-              <ul class="tag-list">
-                {post.data.tags.map((tag) => (
-                  <li><a href={`/tags/${tag}/`}>{tag}</a></li>
-                ))}
-              </ul>
-            )}
           </article>
         ))}
       </div>
@@ -89,11 +77,6 @@ function formatDate(date: string) {
 }
 .post-excerpt {
   margin: 0 1rem 1rem 1rem;
-  color: var(--sl-color-text-secondary);
-}
-.post-link time {
-  margin: 0 1rem 1rem;
-  font-size: 0.875rem;
   color: var(--sl-color-text-secondary);
 }
 .tag-list {
