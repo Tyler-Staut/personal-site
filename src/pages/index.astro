@@ -153,6 +153,10 @@ const frontmatter = {
 </StarlightPage>
 
 <style>
+  :global(.sl-card) {
+    border-radius: 0.75rem;
+  }
+
   .latest-blog,
   .latest-bluesky {
     margin-top: var(--sl-spacing-xl, 2rem);
@@ -226,7 +230,7 @@ const frontmatter = {
   .bsky-card {
     display: block;
     position: relative;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     overflow: hidden;
     min-height: 10rem;
     padding: var(--sl-spacing-md, 1rem);
