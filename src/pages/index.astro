@@ -153,6 +153,12 @@ const frontmatter = {
 </StarlightPage>
 
 <style>
+  :global(.sl-hero img) {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
   .latest-blog,
   .latest-bluesky {
     margin-top: var(--sl-spacing-xl, 2rem);
