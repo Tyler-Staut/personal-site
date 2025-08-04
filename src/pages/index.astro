@@ -85,45 +85,45 @@ const frontmatter = {
     </Card>
 
     <Card class="flex flex-col" title="Contact" icon="email">
-      <small class="flex items-center gap-2 flex-row whitespace-nowrap w-full" style="display:block;">
-        <span style="display:flex;align-items:center;gap:0.75rem;">
-          <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="LinkedIn">
-            <Icon name="simple-icons:linkedin" size="30" style="color:currentColor;" />
+      <small class="flex items-center gap-2 flex-row whitespace-nowrap w-full block">
+        <span class="flex items-center gap-3">
+          <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center no-underline text-[inherit]" aria-label="LinkedIn">
+            <Icon name="simple-icons:linkedin" size="30" class="text-current" />
           </a>
-          <a href="https://github.com/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="GitHub">
-            <Icon name="simple-icons:github" size="30" style="color:currentColor;" />
+          <a href="https://github.com/Tyler-Staut" class="inline-flex items-center no-underline text-[inherit]" aria-label="GitHub">
+            <Icon name="simple-icons:github" size="30" class="text-current" />
           </a>
-          <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="Bluesky">
-            <Icon name="simple-icons:bluesky" size="30" style="color:currentColor;" />
+          <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center no-underline text-[inherit]" aria-label="Bluesky">
+            <Icon name="simple-icons:bluesky" size="30" class="text-current" />
           </a>
         </span>
       </small>
     </Card>
   </CardGrid>
 
-  <section class="latest-bluesky">
-    <h2 style="display: flex; color:inherit; align-items: center; gap: 0.5em; font-size: 1.5rem;">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" style="width: 1.5em; height: 1.5em; vertical-align: middle;" />
+  <section class="mt-8">
+    <h2 class="flex items-center gap-2 text-2xl text-[inherit]">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky" class="w-[1.5em] h-[1.5em] align-middle" />
       <span>From Bluesky</span>
     </h2>
-    <p style="color:inherit;" margin-top: 0; margin-bottom: 1rem; font-size: 1rem;">
-      A peek at my latest posts on <a href="https://bsky.app/profile/tylerstaut.com" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">Bluesky</a>.
+    <p class="mt-0 mb-4 text-base text-[inherit]">
+      A peek at my latest posts on <a href="https://bsky.app/profile/tylerstaut.com" target="_blank" rel="noopener noreferrer" class="text-[inherit] underline">Bluesky</a>.
     </p>
     {posts.length === 0 ? (
       <p>No Bluesky posts yet.</p>
     ) : (
-      <ul class="bsky-list">
+      <ul class="grid gap-4 list-none m-0 p-0 [grid-template-columns:repeat(auto-fill,minmax(16rem,1fr))]">
         {posts.map((post) => (
           <li>
             <a
-              class="bsky-card"
+              class="block relative rounded-md overflow-hidden min-h-[10rem] p-4 text-[var(--sl-color-white)] no-underline bg-[var(--sl-color-gray-6)] bg-cover bg-center shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-black/40 before:pointer-events-none"
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={post.image ? `--bg-image: url('${post.image}')` : undefined}
+              style={post.image ? `background-image: url('${post.image}')` : undefined}
             >
-              <p>{post.text}</p>
-              <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
+              <p class="relative m-0">{post.text}</p>
+              <time class="relative block mt-2 text-sm text-[var(--sl-color-gray-3)]" datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
             </a>
           </li>
         ))}
@@ -132,74 +132,3 @@ const frontmatter = {
   </section>
 </StarlightPage>
 
-<style>
-  .latest-blog,
-  .latest-bluesky {
-    margin-top: 2rem;
-  }
-
-  .post-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .post-list li {
-    margin-bottom: 0.5rem;
-  }
-
-  .archive-link {
-    text-align: right;
-  }
-
-  .bsky-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 1rem;
-  }
-
-  @media (min-width: 50rem) {
-    .bsky-list {
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    }
-  }
-
-  .bsky-card {
-    display: block;
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    min-height: 10rem;
-    padding: 1rem;
-    color: var(--sl-color-white);
-    text-decoration: none;
-    background-color: var(--sl-color-gray-6);
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
-    box-shadow: var(--sl-shadow-sm);
-  }
-
-  .bsky-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-  }
-
-  .bsky-card p,
-  .bsky-card time {
-    position: relative;
-    margin: 0;
-  }
-
-  .bsky-card time {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--sl-color-gray-3);
-  }
-</style>

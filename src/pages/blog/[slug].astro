@@ -20,6 +20,6 @@ const readingTime = `${Math.ceil(wordCount / 200)} min read`;
   <Content />
 </PostLayout>
 
-<div style="display:flex;flex-wrap:wrap;gap:0.5rem;font-size:0.875rem;color:var(--sl-color-text-secondary);">
+<div class="flex flex-wrap gap-2 text-sm text-[var(--sl-color-text-secondary)]">
       {readingTime && <span>{readingTime}</span>}
     </div>
