@@ -13,6 +13,9 @@ export default defineConfig({
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/Tyler-Staut' },
       ],
+      components: {
+        ThemeSelect: './src/components/ThemeToggle.astro'
+      },
       head: [
         {
           tag: 'link',

@@ -1,0 +1,37 @@
+---
+import '../styles/themes.css';
+const themes = [
+  { value: '', label: 'Default' },
+  { value: 'sakura', label: 'Sakura' },
+  { value: 'starfield', label: 'Starfield' }
+];
+---
+<select id="theme-toggle" class="theme-toggle">
+  {themes.map(theme => (
+    <option value={theme.value}>{theme.label}</option>
+  ))}
+</select>
+<script is:client>
+  const select = document.getElementById('theme-toggle');
+  const stored = localStorage.getItem('theme');
+  if (stored) {
+    document.documentElement.dataset.theme = stored;
+    select.value = stored;
+  }
+  select.addEventListener('change', () => {
+    const theme = select.value;
+    if (theme) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+    } else {
+      document.documentElement.dataset.theme = '';
+      localStorage.removeItem('theme');
+    }
+  });
+</script>
+<style>
+  .theme-toggle {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+  }
+</style>
