@@ -2,6 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
+import { Button } from 'free-astro-components';
 import tylerImage from '../assets/tyler.png';
 import { getCollection } from 'astro:content';
 interface BskyPost {
@@ -74,30 +75,28 @@ const frontmatter = {
 
     <Card class="flex flex-col" title="Projects" icon="rocket" href="/projects/">
       A few things I’m building:
-      <ul>
-        <li>Cloudflare Workers</li>
-        <li>Home lab project</li>
-        <li>CTF write-ups</li>
-        <li>Security tools</li>
-        <li>Discord Bot stuff</li>
-        <li>And more!</li>
-      </ul>
+      <div class="projects-grid">
+        <Button label="Cloudflare Workers" variant="secondary" size="small" class="w-full" />
+        <Button label="Home lab project" variant="secondary" size="small" class="w-full" />
+        <Button label="CTF write-ups" variant="secondary" size="small" class="w-full" />
+        <Button label="Security tools" variant="secondary" size="small" class="w-full" />
+        <Button label="Discord Bot stuff" variant="secondary" size="small" class="w-full" />
+        <Button label="And more!" variant="secondary" size="small" class="w-full" />
+      </div>
     </Card>
 
     <Card class="flex flex-col" title="Contact" icon="email">
-      <small class="flex items-center gap-2 flex-row whitespace-nowrap w-full" style="display:block;">
-        <span style="display:flex;align-items:center;gap:0.75rem;">
-          <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="LinkedIn">
-            <Icon name="simple-icons:linkedin" size="30" style="color:currentColor;" />
-          </a>
-          <a href="https://github.com/Tyler-Staut" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="GitHub">
-            <Icon name="simple-icons:github" size="30" style="color:currentColor;" />
-          </a>
-          <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center no-underline" style="color:inherit;" aria-label="Bluesky">
-            <Icon name="simple-icons:bluesky" size="30" style="color:currentColor;" />
-          </a>
-        </span>
-      </small>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/Tyler-Staut" class="inline-flex items-center no-underline text-inherit" aria-label="LinkedIn">
+          <Icon name="simple-icons:linkedin" class="contact-icon" />
+        </a>
+        <a href="https://github.com/Tyler-Staut" class="inline-flex items-center no-underline text-inherit" aria-label="GitHub">
+          <Icon name="simple-icons:github" class="contact-icon" />
+        </a>
+        <a href="https://bsky.app/profile/tylerstaut.com" class="inline-flex items-center no-underline text-inherit" aria-label="Bluesky">
+          <Icon name="simple-icons:bluesky" class="contact-icon" />
+        </a>
+      </div>
     </Card>
   </CardGrid>
 
@@ -201,5 +200,31 @@ const frontmatter = {
     margin-top: 0.5rem;
     font-size: 0.875rem;
     color: var(--sl-color-gray-3);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .contact-links a {
+    color: inherit;
+  }
+
+  .contact-icon {
+    width: 30px;
+    height: 30px;
+    color: currentColor;
   }
 </style>
