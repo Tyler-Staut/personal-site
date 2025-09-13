@@ -1,0 +1,34 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import { getCollection } from 'astro:content';
+---
+
+const docs = await getCollection('docs');
+const tools = docs.filter((d) => d.slug.startsWith('tools/'));
+
+<StarlightPage frontmatter={{ title: 'Labs', description: 'Experimental tools and small projects' }} hasSidebar={false}>
+  <h1>Labs</h1>
+  <p>Small experiments, utilities, and tools Im putting together. Click a tile to explore.</p>
+
+  {tools.length === 0 ? (
+    <p>Nothing here yet — stay tuned.</p>
+  ) : (
+    <CardGrid class="labs-grid">
+      {tools.map((t) => (
+        <Card title={t.data.title ?? t.id} href={`/docs/${t.slug}`} icon={t.data.icon ?? 'rocket'}>
+          {t.data.description ?? ''}
+        </Card>
+      ))}
+    </CardGrid>
+  )}
+</StarlightPage>
+
+<style>
+.labs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+</style>
