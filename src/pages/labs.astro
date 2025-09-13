@@ -1,0 +1,28 @@
+---
+import BentoBox from '../components/BentoBox.astro';
+const projects = [
+  { title: "Project One", description: "A cool project about X.", link: "https://github.com/yourusername/project-one", image: "/favicon.svg" },
+  { title: "Project Two", description: "Another interesting project.", link: "https://github.com/yourusername/project-two" },
+  // Add more projects here
+];
+---
+<h1>Labs</h1>
+<div class="bento-grid">
+  {projects.map(project => (
+    <BentoBox {...project} />
+  ))}
+</div>
+
+<style>
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+</style>
