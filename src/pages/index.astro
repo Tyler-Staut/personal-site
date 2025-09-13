@@ -3,266 +3,84 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import tylerImage from '../assets/tyler.png';
-import { getCollection } from 'astro:content';
-interface BskyPost {
-  text: string;
-  createdAt: string;
-  url: string;
-  image?: string;
-}
-
-let posts: BskyPost[] = [];
-const latestBlog = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-try {
-  const res = await fetch(
-    'https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=tylerstaut.com&limit=3'
-  );
-  if (res.ok) {
-    const data = await res.json();
-    posts = data.feed.map(({ post }: any) => {
-      const rkey = post.uri.split('/').pop();
-      const image =
-        post.embed?.images?.[0]?.thumb ||
-        post.embed?.media?.images?.[0]?.thumb;
-      return {
-        text: post.record.text,
-        createdAt: post.record.createdAt,
-        url: `https://bsky.app/profile/${post.author.handle}/post/${rkey}`,
-        image
-      };
-    });
-  }
-} catch (err) {
-  console.error('Failed to fetch Bluesky posts', err);
-}
-
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
-}
-
-const frontmatter = {
-  title: 'Tyler Staut',
-  description: 'Traveler • Hacker • CTF Junkie',
-  template: 'splash',
-  hero: {
-    title: 'Hey! I\u2019m Tyler',
-    tagline: 'Boldly going where no hacker has gone before<br />Probably doing a <a href="https://careerlimitingmaneuver.com" target="_blank" rel="noopener noreferrer">Career Limiting Maneuver</a>',
-    image: { file: tylerImage, alt: 'Tyler Staut head-shot' },
-    actions: [
-      { text: 'Read my Blog', link: '/blog/', icon: 'rss', variant: 'secondary' },
-      { text: 'Dive into my Docs', link: '/notes/', icon: 'right-arrow' },
-    ]
-  }
-};
 ---
-<StarlightPage frontmatter={frontmatter} hasSidebar={false}>
-  <CardGrid stagger>
-    <Card class="flex flex-col" title="About" icon="information" href="/about/">
-      I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.
-      <br /><br />
-      I am using this to help me on my journey and will include a lot of information I find useful.
-      <br /><br />
-      Whether you're here for tips on security or just curious about my projects, I hope you'll find something that sparks your interest!
-    </Card>
+<StarlightPage frontmatter={{ title: 'Tyler Staut', description: 'Traveler • Hacker • CTF Junkie' }} hasSidebar={false}>
+  <header class="hero">
+    <img src={tylerImage} alt="Tyler Staut" class="hero-avatar"/>
+    <div class="hero-text">
+      <h1>Hey — I’m Tyler</h1>
+      <p>Traveler • Hacker • CTF junkie. I tinker with Cloudflare Workers, home labs, and small security tools.</p>
+    </div>
+  </header>
 
-    <Card class="flex flex-col" title="Projects" icon="rocket" href="/projects/">
-      A few things I’m building:
-      <ul>
-        <li>Cloudflare Workers</li>
-        <li>Home lab project</li>
-        <li>CTF write-ups</li>
-        <li>Security tools</li>
-        <li>Discord Bot stuff</li>
-        <li>And more!</li>
-      </ul>
-    </Card>
+  <main>
+    <CardGrid class="bento-grid">
+      <Card title="About" icon="information" href="/about/">
+        Who I am, what I do, and why I build things.
+      </Card>
 
-    <Card class="flex flex-col" title="Contact" icon="email">
-      <small class="contact-icons">
-        <a
-          href="https://linkedin.com/in/Tyler-Staut"
-          class="inline-flex items-center no-underline"
-          aria-label="LinkedIn"
-        >
-          <Icon name="simple-icons:linkedin" size="30" />
-        </a>
-        <a
-          href="https://github.com/Tyler-Staut"
-          class="inline-flex items-center no-underline"
-          aria-label="GitHub"
-        >
-          <Icon name="simple-icons:github" size="30" />
-        </a>
-        <a
-          href="https://bsky.app/profile/tylerstaut.com"
-          class="inline-flex items-center no-underline"
-          aria-label="Bluesky"
-        >
-          <Icon name="simple-icons:bluesky" size="30" />
-        </a>
-      </small>
-    </Card>
-  </CardGrid>
+      <Card title="Labs" icon="beaker" href="/labs/">
+        Experimental projects and small tools I'm putting together.
+      </Card>
 
-  <section class="latest-bluesky">
-    <h2 class="bsky-header">
-      <img
-        src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg"
-        alt="Bluesky"
-      />
-      <span>From Bluesky</span>
-    </h2>
-    <p class="bsky-description">
-      A peek at my latest posts on
-      <a
-        href="https://bsky.app/profile/tylerstaut.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Bluesky
-      </a>.
-    </p>
-    {posts.length === 0 ? (
-      <p>No Bluesky posts yet.</p>
-    ) : (
-      <ul class="bsky-list">
-        {posts.map((post) => (
-          <li>
-            <a
-              class="bsky-card"
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={post.image ? `--bg-image: url('${post.image}')` : undefined}
-            >
-              <p>{post.text}</p>
-              <time datetime={post.createdAt}>{formatDate(post.createdAt)}</time>
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
-  </section>
+      <Card title="Blog" icon="rss" href="/blog/">
+        Thoughts, write-ups, and notes from the road.
+      </Card>
+
+      <Card title="Docs" icon="book" href="/notes/">
+        Collection of notes, CTF write-ups, and reference materials.
+      </Card>
+
+      <Card title="Projects" icon="rocket" href="/projects/">
+        Ongoing and completed projects I want to show off.
+      </Card>
+
+      <Card title="Contact" icon="email" href="/about/#contact">
+        Ways to reach me and my social links.
+      </Card>
+    </CardGrid>
+  </main>
 </StarlightPage>
 
 <style>
-  :global(.sl-hero img) {
-    border-radius: 50%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+.hero {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #60a5fa, #7c3aed);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.2);
+  object-fit: cover;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 64rem) {
+  .hero {
+    gap: 2rem;
   }
 
-  .latest-blog,
-  .latest-bluesky {
-    margin-top: var(--sl-spacing-xl, 2rem);
+  .hero-avatar {
+    width: 128px;
+    height: 128px;
   }
-
-  .post-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .post-list li {
-    margin-bottom: var(--sl-spacing-sm, 0.5rem);
-  }
-
-  .archive-link {
-    text-align: right;
-  }
-
-  .contact-icons {
-    display: flex;
-    align-items: center;
-    gap: var(--sl-spacing-md, 0.75rem);
-    color: inherit;
-  }
-
-  .contact-icons a {
-    color: inherit;
-  }
-
-  .bsky-header {
-    display: flex;
-    align-items: center;
-    gap: var(--sl-spacing-sm, 0.5rem);
-    font-size: var(--sl-text-2xl, 1.5rem);
-    color: inherit;
-  }
-
-  .bsky-header img {
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-  }
-
-  .bsky-description {
-    color: inherit;
-    margin-top: 0;
-    margin-bottom: var(--sl-spacing-md, 1rem);
-    font-size: var(--sl-text-base, 1rem);
-  }
-
-  .bsky-description a {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  .bsky-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--sl-spacing-md, 1rem);
-  }
-
-  @media (min-width: 50rem) {
-    .bsky-list {
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    }
-  }
-
-  .bsky-card {
-    display: block;
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    min-height: 10rem;
-    padding: var(--sl-spacing-md, 1rem);
-    color: var(--sl-color-white);
-    text-decoration: none;
-    background-color: var(--sl-color-gray-6);
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
-    box-shadow: var(--sl-shadow-sm);
-  }
-
-  .bsky-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-  }
-
-  .bsky-card p,
-  .bsky-card time {
-    position: relative;
-    margin: 0;
-  }
-
-  .bsky-card time {
-    display: block;
-    margin-top: var(--sl-spacing-sm, 0.5rem);
-    font-size: var(--sl-text-sm, 0.875rem);
-    color: var(--sl-color-gray-3);
-  }
+}
 </style>
