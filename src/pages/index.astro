@@ -1,86 +1,18 @@
 ---
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Card, CardGrid } from '@astrojs/starlight/components';
-import { Icon } from 'astro-icon/components';
-import tylerImage from '../assets/tyler.png';
+import BentoBox from '../components/BentoBox.astro';
 ---
-<StarlightPage frontmatter={{ title: 'Tyler Staut', description: 'Traveler • Hacker • CTF Junkie' }} hasSidebar={false}>
-  <header class="hero">
-    <img src={tylerImage} alt="Tyler Staut" class="hero-avatar"/>
-    <div class="hero-text">
-      <h1>Hey — I’m Tyler</h1>
-      <p>Traveler • Hacker • CTF junkie. I tinker with Cloudflare Workers, home labs, and small security tools.</p>
-    </div>
-  </header>
-
-  <main>
-    <CardGrid class="bento-grid">
-      <Card title="About" icon="information" href="/about/">
-        Who I am, what I do, and why I build things.
-      </Card>
-
-      <Card title="Labs" icon="beaker" href="/labs/">
-        Experimental projects and small tools I'm putting together.
-      </Card>
-
-      <Card title="Blog" icon="rss" href="/blog/">
-        Thoughts, write-ups, and notes from the road.
-      </Card>
-
-      <Card title="Docs" icon="book" href="/notes/">
-        Collection of notes, CTF write-ups, and reference materials.
-      </Card>
-
-      <Card title="Projects" icon="rocket" href="/projects/">
-        Ongoing and completed projects I want to show off.
-      </Card>
-
-      <Card title="Contact" icon="email" href="/about/#contact">
-        Ways to reach me and my social links.
-      </Card>
-    </CardGrid>
-  </main>
-</StarlightPage>
+<div class="bento-grid">
+  <BentoBox title="About Me" description="Learn more about me and my background." link="/about" image="/favicon.svg" />
+  <BentoBox title="Labs" description="Explore my projects and experiments." link="/labs" />
+  <BentoBox title="Contact" description="Get in touch with me." link="/contact" />
+  <!-- Add more boxes as needed -->
+</div>
 
 <style>
-.hero {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.hero-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  border: 6px solid transparent;
-  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #60a5fa, #7c3aed);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.2);
-  object-fit: cover;
-}
-
-.hero-text h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 1rem;
-}
-
-@media (min-width: 64rem) {
-  .hero {
-    gap: 2rem;
-  }
-
-  .hero-avatar {
-    width: 128px;
-    height: 128px;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
 }
 </style>
