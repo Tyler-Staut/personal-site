@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+---
+
+<BaseLayout title={`About — ${site.name}`} description={site.description} current="about">
+  <section class="hero" style="display:flex; align-items:center; gap:16px;">
+    <Image class="avatar-lg" src={site.avatarUrl} alt={`${site.name}'s avatar`} width={150} height={150} loading="eager" />
+    <div>
+      <h1>Hey! I’m Tyler</h1>
+      <p class="lead">{site.name} — Boldly going where no hacker has gone before</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel prose">
+      <h2 class="with-icon">
+        <Icon class="heading-icon" name="mdi:information-outline" width="18" height="18" />
+        About
+      </h2>
+      <p>I enjoy traveling, gaming, homelabbing, taking part in CTF's and generally working in tech/security.</p>
+      <p>I am using this to help me on my journey and will include a lot of information I find useful.</p>
+      <p>Whether you're here for tips on security or just curious about my projects, I hope you'll find something that sparks your interest!</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <h2 class="with-icon">
+        <Icon class="heading-icon" name="mdi:email-outline" width="18" height="18" />
+        Contact
+      </h2>
+      <div class="contact-icons" style="margin-top:8px;">
+        <a class="icon-link" href="https://linkedin.com/in/Tyler-Staut" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><Icon name="simple-icons:linkedin" width="20" height="20" /></a>
+        <a class="icon-link" href="https://github.com/Tyler-Staut" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><Icon name="simple-icons:github" width="20" height="20" /></a>
+        <a class="icon-link" href="https://bsky.app/profile/tylerstaut.com" aria-label="Bluesky" target="_blank" rel="noopener noreferrer"><Icon name="simple-icons:bluesky" width="20" height="20" /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
