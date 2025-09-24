@@ -6,6 +6,18 @@ import { Image } from "astro:assets";
 type Project = { title: string; desc: string; href: string };
 const groups: { name: string; items: Project[] }[] = [
   {
+    name: 'Unraid',
+    items: [
+      { title: 'Unraid Templates', desc: 'Docker templates for Unraid Community Apps', href: 'https://github.com/Tyler-Staut/unraid-templates' },
+    ],
+  },
+  {
+    name: 'MCP Servers',
+    items: [
+      { title: 'Minecraft MCP', desc: 'Minecraft MCP server project', href: 'https://github.com/Tyler-Staut/Minecraft-MCP' },
+    ],
+  },
+  {
     name: 'Meme',
     items: [
       { title: 'Career Limiting Maneuver', desc: 'Career Limiting Maneuver', href: 'https://careerlimitingmaneuver.com/' },

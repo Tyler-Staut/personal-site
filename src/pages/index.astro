@@ -68,34 +68,7 @@ try {
       </div>
     </div>
   </section>
-
-  <section class="section bsky panel">
-    <h2 class="bsky-header">
-      <span class="icon"><Icon name="simple-icons:bluesky" width="20" height="20" style="color:#1185fe" /></span>
-      <span>From Bluesky</span>
-    </h2>
-    <p class="bsky-description">
-      A peek at my latest posts on
-      <a href={"https://bsky.app/profile/" + actorHandle} target="_blank" rel="noopener noreferrer">Bluesky</a>.
-    </p>
-    <ul class="bsky-list">
-      {posts.length
-        ? posts.map((p) => (
-            <li>
-              <a class="bsky-card" href={p.url} target="_blank" rel="noopener noreferrer">
-                <div class="bsky-text">{p.text}</div>
-                {p.image && <img src={p.image} alt="" width="300" height="200" class="bsky-media" loading="eager" />}
-                <div class="bsky-meta">
-                  <span class="bsky-date">{formatDate(p.createdAt)}</span>
-                  <span class="bsky-cta">View on Bluesky →</span>
-                </div>
-              </a>
-            </li>
-          ))
-        : <li><p class="muted">No recent Bluesky posts.</p></li>}
-    </ul>
-  </section>
- </BaseLayout>
+</BaseLayout>
 
 <style>
   .bento-hero {
@@ -163,27 +136,4 @@ try {
   @media (prefers-reduced-motion: reduce) {
     .button, .card, .project, nav a { transition: none !important; }
   }
-  /* Skeletons */
-  .bsky-skel { display:none; }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-  /* Bluesky styles */
-  .bsky { text-align: left; }
-  .bsky-header { display:flex; align-items:center; gap:8px; font-size:22px; justify-content:flex-start; }
-  .bsky-description { margin: 0 0 10px; }
-  .bsky-description a { color: inherit; text-decoration: underline; }
-  /* Masonry-like tiling with CSS columns */
-  .bsky-list { list-style: none; padding: 0; margin: 0; columns: 1; column-gap: 12px; max-width: 100%; }
-  @media (min-width: 760px) { .bsky-list { columns: 3; } }
-  @media (max-width: 759px) { .bsky-list { columns: 1; } }
-  .bsky-list > li { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 12px; }
-  /* Keep height similar: show up to 3 cards on wide, 2 on narrow */
-  @media (min-width: 760px) { .bsky-list > li:nth-child(n+4) { display: none; } }
-  @media (max-width: 759px) { .bsky-list > li:nth-child(n+3) { display: none; } }
-  .bsky-card { display:block; text-align:left; padding: 10px 12px; border-radius: 10px; background: var(--surface); border:1px solid var(--border); box-shadow: var(--shadow); color: inherit; text-decoration: none; transition: border-color .15s ease, background .15s ease, transform .15s ease; break-inside: avoid; }
-  .bsky-card:hover { border-color: color-mix(in oklab, var(--text) 20%, transparent); background: color-mix(in oklab, var(--surface) 96%, black); transform: translateY(-1px); }
-  .bsky-text { margin: 0 0 8px; line-height: 1.45; font-size: .96rem; overflow:hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; }
-  @media (max-width: 640px) { .bsky-text { -webkit-line-clamp: 5; } }
-  .bsky-media { width: 100%; height: auto; border-radius: 8px; border:1px solid var(--border); display:block; margin: 6px 0 8px; }
-  .bsky-meta { display:flex; justify-content: space-between; align-items: center; font-size: .85rem; color: var(--muted); margin-top: 2px; }
-  .bsky-cta { font-weight: 600; opacity: .9; }
 </style>
