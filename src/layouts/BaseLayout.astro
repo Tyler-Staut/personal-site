@@ -9,7 +9,7 @@ export interface Props {
 const { title = 'Tyler Staut', description = 'Software engineer', current = '' } = Astro.props as Props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,9 +23,7 @@ const { title = 'Tyler Staut', description = 'Software engineer', current = '' }
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/assets/tyler.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/fonts/inter/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
@@ -34,11 +32,14 @@ const { title = 'Tyler Staut', description = 'Software engineer', current = '' }
         <a class="brand" href="/" aria-label="Home">
           <strong>Tyler Staut</strong>
         </a>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        <nav id="site-nav" aria-label="Primary">
-          <a href="/projects" aria-current={current === 'projects' ? 'page' : undefined}>Projects</a>
-          <a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a>
-        </nav>
+        <div class="header-actions">
+          <nav id="site-nav" aria-label="Primary">
+            <a href="/projects" aria-current={current === 'projects' ? 'page' : undefined}>Projects</a>
+            <a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle theme">◐</button>
+          <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        </div>
       </header>
 
       <main>
@@ -62,18 +63,25 @@ const { title = 'Tyler Staut', description = 'Software engineer', current = '' }
   </html>
 
 <script is:inline>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<script is:inline>
   const header = document.querySelector('header.site-header');
-  const btn = header?.querySelector('.menu-toggle');
+  const menuBtn = header?.querySelector('.menu-toggle');
   const nav = header?.querySelector('#site-nav');
   const mq = window.matchMedia('(max-width: 640px)');
   function closeMenu() {
     header?.setAttribute('data-open', 'false');
-    btn?.setAttribute('aria-expanded', 'false');
+    menuBtn?.setAttribute('aria-expanded', 'false');
   }
-  btn?.addEventListener('click', () => {
+  menuBtn?.addEventListener('click', () => {
     const open = header?.getAttribute('data-open') === 'true';
     header?.setAttribute('data-open', String(!open));
-    btn?.setAttribute('aria-expanded', String(!open));
+    menuBtn?.setAttribute('aria-expanded', String(!open));
   });
   nav?.addEventListener('click', (e) => {
     const target = e.target;
@@ -83,4 +91,12 @@ const { title = 'Tyler Staut', description = 'Software engineer', current = '' }
     if (!mq.matches) closeMenu();
   });
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  const themeBtn = document.querySelector('.theme-toggle');
+  themeBtn?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
 </script>

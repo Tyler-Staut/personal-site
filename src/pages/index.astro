@@ -2,57 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
 import { Icon } from "astro-icon/components";
-import { BskyAgent } from "@atproto/api";
 import { Image } from "astro:assets";
 import heroImg from "../assets/fujisan.jpg";
-// Use <Image> for the local hero; keep <img> for remote Bluesky images
-const actorHandle = site?.bskyHandle || 'tylerstaut.com';
 
 const pageTitle = `${site.name} — ${site.role}`;
-
-// Fetch recent Bluesky posts server-side and render lightweight cards
-type SimplePost = { text: string; createdAt: string; url: string; image?: string };
-let posts: SimplePost[] = [];
-const extractImage = (embed: any): string | undefined => {
-  if (!embed) return undefined;
-  const t = embed?.$type || embed?.type;
-  if (t?.includes('app.bsky.embed.images')) {
-    const img = embed.images?.[0];
-    return img?.thumb || img?.fullsize;
-  }
-  if (t?.includes('app.bsky.embed.external')) {
-    return embed.external?.thumb;
-  }
-  if (t?.includes('app.bsky.embed.recordWithMedia')) {
-    return extractImage(embed.media) || extractImage(embed.record?.embed);
-  }
-  return embed?.images?.[0]?.thumb || embed?.images?.[0]?.fullsize || embed?.external?.thumb;
-};
-function formatDate(d: string) {
-  try {
-    return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  } catch { return ''; }
-}
-try {
-  const service = 'https://public.api.bsky.app';
-  // Resolve handle to DID for reliability
-  const res = await fetch(`${service}/xrpc/com.atproto.identity.resolveHandle?handle=${encodeURIComponent(actorHandle)}`, { headers: { accept: 'application/json' } });
-  const did = res.ok ? (await res.json())?.did || actorHandle : actorHandle;
-  const agent = new BskyAgent({ service });
-  const feed = await agent.getAuthorFeed({ actor: did, limit: 6, filter: 'posts_no_replies' as any });
-  posts = (feed.data?.feed || []).map((item: any) => {
-    const post = item?.post || {};
-    const rkey = String(post?.uri || '').split('/').pop();
-    return {
-      text: post?.record?.text || '',
-      createdAt: post?.record?.createdAt || '',
-      url: post?.author?.handle && rkey ? `https://bsky.app/profile/${post.author.handle}/post/${rkey}` : '',
-      image: extractImage(post?.embed),
-    } as SimplePost;
-  }).filter((p: SimplePost) => !!p.url);
-} catch (e) {
-  posts = [];
-}
 ---
 
 <BaseLayout title={pageTitle} description={site.tagline} current="home">
@@ -113,7 +66,7 @@ try {
     align-items: center;
     gap: .5rem;
     background: var(--text);
-    color: #0b0c0f;
+    color: var(--bg);
     border-radius: 999px;
     padding: .6rem .95rem;
     border: none;
@@ -129,7 +82,7 @@ try {
     border: 1px solid var(--border);
   }
   .button.secondary:hover {
-    background: rgba(255,255,255,.06);
+    background: rgba(128,128,128,.08);
     border-color: color-mix(in oklab, var(--text) 20%, transparent);
   }
   /* Motion preferences */
