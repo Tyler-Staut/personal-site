@@ -39,7 +39,7 @@ function iconUrl(href: string) {
 <BaseLayout title={`Projects — ${site.name}`} description="Selected projects" current="projects">
   <section class="hero">
     <h1>Projects</h1>
-    <p class="lead">Selected things I’m building and running.</p>
+    <p class="lead">Selected things I'm building and running.</p>
   </section>
 
   {groups.map((g) => (
@@ -49,7 +49,9 @@ function iconUrl(href: string) {
         {g.items.map((p) => (
           <a class="card project" href={p.href} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — ${p.desc}`}>
             <div class="project-head">
-              <Image src={iconUrl(p.href)} alt="" width={18} height={18} class="favicon" loading="eager" />
+              <span class="favicon-wrap">
+                <Image src={iconUrl(p.href)} alt="" width={18} height={18} class="favicon" loading="eager" />
+              </span>
               <span class="title">{p.title}</span>
               <span class="arrow" aria-hidden="true">→</span>
             </div>
@@ -65,7 +67,18 @@ function iconUrl(href: string) {
   .card.project { display: block; text-decoration: none; }
   .card.project:hover { background: rgba(255,255,255,0.03); border-color: color-mix(in oklab, var(--link) 25%, var(--border)); }
   .project-head { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
-  .favicon { width: 18px; height: 18px; border-radius: 4px; }
+  .favicon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+  }
+  [data-theme="light"] .favicon-wrap { background: rgba(0,0,0,0.04); }
+  .favicon { width: 16px; height: 16px; border-radius: 3px; }
   .arrow { margin-left: auto; color: var(--muted); transition: transform .15s ease, color .15s ease; }
   .card.project:hover .arrow { transform: translateX(2px); color: var(--text); }
 </style>

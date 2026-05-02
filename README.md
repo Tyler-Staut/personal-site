@@ -36,14 +36,14 @@ Welcome to the source code for my personal website, built with [Astro](https://a
 
 ### Commands
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts the local development server              |
-| `npm run build`           | Builds the site for production                   |
-| `npm run preview`         | Previews the production build locally            |
-| `npm run deploy`          | Deploys the site to Cloudflare Workers           |
-| `npm run format`          | Formats the codebase using Prettier              |
+| Command           | Action                                 |
+| :---------------- | :------------------------------------- |
+| `npm install`     | Installs dependencies                  |
+| `npm run dev`     | Starts the local development server    |
+| `npm run build`   | Builds the site for production         |
+| `npm run preview` | Previews the production build locally  |
+| `npm run deploy`  | Deploys the site to Cloudflare Workers |
+| `npm run format`  | Formats the codebase using Prettier    |
 
 ### Local Development
 

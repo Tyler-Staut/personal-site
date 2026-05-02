@@ -1,13 +1,29 @@
 /* Global styles inspired by clean, type-first personal sites */
 
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  --bg: #0b0c0f;
-  --surface: #101218;
+  --bg: #111318;
+  --surface: #181a22;
   --text: #eaeef8;
   --muted: #a7b0c0;
   --link: #71b7ff;
   --link-hover: #9cd0ff;
-  --border: #1a1f2a;
+  --border: #232730;
   --accent: #7cf;
 
   --radius: 10px;
@@ -20,6 +36,18 @@
   --font-display: Inter, var(--font-sans);
 }
 
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --text: #1a1a2e;
+  --muted: #5a6577;
+  --link: #1a6bbf;
+  --link-hover: #1558a0;
+  --border: #d8dde6;
+  --accent: #0066cc;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,15 +57,16 @@ body {
 }
 body {
   margin: 0;
-  /* Layered background: radial highlight over solid base */
   background:
     radial-gradient(1200px 700px at 20% -10%, #152036 0%, transparent 55%),
     var(--bg);
-  /* Prevent the gradient image from tiling on tall pages */
   background-repeat: no-repeat, no-repeat;
-  /* Keep the glow large enough across viewports */
-  background-size: 1600px 800px, auto;
-  background-position: top left, center;
+  background-size:
+    1600px 800px,
+    auto;
+  background-position:
+    top left,
+    center;
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -45,11 +74,21 @@ body {
   line-height: 1.6;
 }
 
+[data-theme="light"] body {
+  background:
+    radial-gradient(1200px 700px at 20% -10%, #e2e8f4 0%, transparent 55%),
+    var(--bg);
+}
+
 @media (max-width: 640px) {
   body {
     /* Slightly reposition and scale the glow for mobile */
-    background-size: 1400px 700px, auto;
-    background-position: -120px -60px, center;
+    background-size:
+      1400px 700px,
+      auto;
+    background-position:
+      -120px -60px,
+      center;
   }
 }
 
@@ -348,4 +387,33 @@ footer {
 }
 .button:hover {
   transform: translateY(-2px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.16s ease;
+}
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+[data-theme="light"] .theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.06);
 }
