@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
-import { Image } from "astro:assets";
 
 type Project = { title: string; desc: string; href: string };
 const groups: { name: string; items: Project[] }[] = [
@@ -21,7 +20,6 @@ const groups: { name: string; items: Project[] }[] = [
     name: 'Meme',
     items: [
       { title: 'Career Limiting Maneuver', desc: 'Career Limiting Maneuver', href: 'https://careerlimitingmaneuver.com/' },
-      { title: 'Career Limiting Together', desc: 'See everyone making a career limiting maneuver', href: 'https://multiplayer.careerlimitingmaneuver.com/' },
     ],
   },
 ];
@@ -50,10 +48,9 @@ function iconUrl(href: string) {
           <a class="card project" href={p.href} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — ${p.desc}`}>
             <div class="project-head">
               <span class="favicon-wrap">
-                <Image src={iconUrl(p.href)} alt="" width={18} height={18} class="favicon" loading="eager" />
+                <img src={iconUrl(p.href)} alt="" width="18" height="18" class="favicon" loading="eager" onerror="this.style.display='none'" />
               </span>
               <span class="title">{p.title}</span>
-              <span class="arrow" aria-hidden="true">→</span>
             </div>
             <p class="meta">{p.desc}</p>
           </a>
