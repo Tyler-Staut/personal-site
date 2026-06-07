@@ -44,6 +44,7 @@ export interface FooterMeta {
 
 export const siteNav: NavLink[] = [
   { label: "Projects", href: "/projects/" },
+  { label: "Grounds Control", href: "/coffee/" },
   { label: "About", href: "/about/" },
 ];
 
@@ -52,6 +53,7 @@ export const heroLeftNav: NavLink[] = [
 ];
 
 export const heroRightNav: NavLink[] = [
+  { label: "Grounds Control", href: "/coffee/" },
   { label: "About", href: "/about/" },
 ];
 
