@@ -1,92 +1,58 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { site } from "../data/site";
-import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
-import heroImg from "../assets/fujisan.jpg";
+import HeroShell from '../components/aeon/HeroShell';
+import MissionsSection from '../components/MissionsSection';
+import StatsSection from '../components/StatsSection';
+import {
+  heroContent,
+  heroLeftNav,
+  heroRightNav,
+  mobileNav,
+  stats,
+} from '../data/site';
+import { getProjectEntries, toProjectCard } from '../lib/content';
+import '../styles/global.css';
 
-const pageTitle = `${site.name} — ${site.role}`;
+const projectEntries = await getProjectEntries();
 ---
 
-<BaseLayout title={pageTitle} description={site.tagline} current="home">
-  <section class="bento-hero">
-    <div class="bento-background">
-      <Image src={heroImg} alt="Mount Fuji" class="bento-bg-image" loading="eager" fetchpriority="high" sizes="(max-width: 980px) 100vw, 980px" />
-    </div>
-    <div class="bento-content">
-      <h1>{site.name}</h1>
-      <div class="cta">
-        <a class="button" href="/projects">Explore Projects</a>
-        <a class="button secondary" href="/about">About Me</a>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  .bento-hero {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 300px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-  .bento-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-  .bento-bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
-  }
-  .bento-content {
-    position: relative;
-    z-index: 1;
-    color: white;
-  }
-  .cta {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
-  .button {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    background: var(--text);
-    color: var(--bg);
-    border-radius: 999px;
-    padding: .6rem .95rem;
-    border: none;
-    font-weight: 600;
-  }
-  .button:hover {
-    text-decoration: none;
-    background: color-mix(in oklab, var(--text) 92%, white);
-  }
-  .button.secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .button.secondary:hover {
-    background: rgba(128,128,128,.08);
-    border-color: color-mix(in oklab, var(--text) 20%, transparent);
-  }
-  /* Motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .button, .card, .project, nav a { transition: none !important; }
-  }
-</style>
+<html lang="en" class="bg-page-bg">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Tyler Staut — Security engineer, builder, and explorer navigating the intersection of infrastructure, software, and security."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+    />
+    <script is:inline>
+      (() => {
+        const key = 'aeon-theme';
+        const stored = window.localStorage.getItem(key);
+        const theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+    <title>Tyler Staut</title>
+  </head>
+  <body class="bg-page-bg font-body text-white antialiased">
+    <main class="site-shell overflow-x-clip">
+      <HeroShell
+        client:load
+        content={heroContent}
+        leftNav={heroLeftNav}
+        mobileNav={mobileNav}
+        rightNav={heroRightNav}
+      />
+      <MissionsSection client:visible missions={projectEntries.map(toProjectCard)} />
+      <StatsSection client:visible stats={stats} />
+    </main>
+  </body>
+</html>

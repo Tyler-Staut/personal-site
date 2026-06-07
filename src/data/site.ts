@@ -1,38 +1,93 @@
-export type Social = {
+export interface NavLink {
+  href: string;
   label: string;
-  url: string;
-  icon?: string;
+}
+
+export interface HeroContent {
+  eyebrow: string;
+  paragraph: string;
+  primaryCta: NavLink;
+  secondaryCta: NavLink;
+  utilityLabel: string;
+}
+
+export interface MissionCardProps {
+  description: string;
+  href: string;
+  icon: "satellite" | "rocket" | "star";
+  status: string;
+  statusTone: "green" | "blue" | "gold";
+  title: string;
+}
+
+export interface StatBlockProps {
+  label: string;
+  value: string;
+}
+
+export interface DiscoveryContent {
+  archiveHref: string;
+  archiveLabel: string;
+  body: string;
+  cta: NavLink;
+  image: string;
+  label: string;
+  rangeEnd: string;
+  rangeStart: string;
+  title: string;
+}
+
+export interface FooterMeta {
+  description: string;
+  title: string;
+}
+
+export const siteNav: NavLink[] = [
+  { label: "Projects", href: "/projects/" },
+  { label: "About", href: "/about/" },
+];
+
+export const heroLeftNav: NavLink[] = [
+  { label: "Projects", href: "/projects/" },
+];
+
+export const heroRightNav: NavLink[] = [
+  { label: "About", href: "/about/" },
+];
+
+export const mobileNav: NavLink[] = [
+  ...heroLeftNav,
+  ...heroRightNav,
+];
+
+export const heroContent: HeroContent = {
+  eyebrow: "THE BOUNDARY IS",
+  paragraph:
+    "Security engineer, builder, and explorer. I navigate the intersection of infrastructure, software, and security — pushing systems to their limits and bringing clarity back home.",
+  primaryCta: {
+    href: "/projects/",
+    label: "Explore Projects",
+  },
+  secondaryCta: {
+    href: "/about/",
+    label: "About Me",
+  },
+  utilityLabel: "",
 };
 
-export const site = {
-  name: "Tyler Staut",
-  role: "Security Engineer",
-  tagline: "Boldly going where no hacker has gone before",
-  description: "Boldly going where no hacker has gone before",
-  location: "Earth, Remote",
-  avatarUrl: "/assets/tyler.png",
-  bskyHandle: "tylerstaut.com",
-  blueskyProfileUrl: "https://bsky.app/profile/tylerstaut.com",
-  socials: [
-    {
-      label: "GitHub",
-      url: "https://github.com/Tyler-Staut",
-      icon: "simple-icons:github",
-    },
-    {
-      label: "LinkedIn",
-      url: "https://www.linkedin.com/in/tyler-staut/",
-      icon: "simple-icons:linkedin",
-    },
-    {
-      label: "Bluesky",
-      url: "https://bsky.app/profile/tylerstaut.com",
-      icon: "simple-icons:bluesky",
-    },
-  ] as Social[],
-  githubRepo: "https://github.com/Tyler-Staut/personal-site",
-  footerText:
-    "Built by Tyler Staut with ❤️ using Astro, TypeScript, and Cloudflare Workers.",
-  links: [],
-  ogImage: "/assets/fujisan.jpg",
-} as const;
+export const stats: StatBlockProps[] = [
+  { value: `${new Date().getFullYear() - 2019}+`, label: "Years in Security" },
+  { value: "25+", label: "Projects Built" },
+  { value: "15+", label: "CTF Competitions" },
+  { value: "∞", label: "Cups of Coffee" },
+];
+
+export const footerMeta: FooterMeta = {
+  title: "Tyler Staut",
+  description:
+    "Security engineer and builder. Navigating the intersection of infrastructure, software, and security.",
+};
+
+export const footerDirectory: NavLink[] = [...siteNav];
+
+export const footerPolicies: string[] = ["Privacy", "Terms"];

@@ -1,81 +1,54 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { site } from "../data/site";
+import { Activity, ArrowRight, Rocket, Satellite, Star } from 'lucide-react';
+import CollectionIndexLayout from '../layouts/CollectionIndexLayout.astro';
+import { getProjectEntries } from '../lib/content';
 
-type Project = { title: string; desc: string; href: string };
-const groups: { name: string; items: Project[] }[] = [
-  {
-    name: 'Unraid',
-    items: [
-      { title: 'Unraid Templates', desc: 'Docker templates for Unraid Community Apps', href: 'https://github.com/Tyler-Staut/unraid-templates' },
-    ],
-  },
-  {
-    name: 'MCP Servers',
-    items: [
-      { title: 'Minecraft MCP', desc: 'Minecraft MCP server project', href: 'https://github.com/Tyler-Staut/Minecraft-MCP' },
-    ],
-  },
-  {
-    name: 'Meme',
-    items: [
-      { title: 'Career Limiting Maneuver', desc: 'Career Limiting Maneuver', href: 'https://careerlimitingmaneuver.com/' },
-    ],
-  },
-];
+const projectEntries = await getProjectEntries();
 
-function iconUrl(href: string) {
-  try {
-    const u = new URL(href);
-    return `https://icons.duckduckgo.com/ip3/${u.hostname}.ico`;
-  } catch {
-    return `https://icons.duckduckgo.com/ip3/${href}.ico`;
-  }
-}
+const iconMap = {
+  satellite: Satellite,
+  rocket: Rocket,
+  star: Star,
+} as const;
+
+const statusStyles = {
+  green: 'bg-emerald-400/10 text-emerald-300',
+  blue: 'bg-accent-blue/14 text-accent-blue',
+  gold: 'bg-warm-gold/12 text-warm-gold',
+} as const;
 ---
 
-<BaseLayout title={`Projects — ${site.name}`} description="Selected projects" current="projects">
-  <section class="hero">
-    <h1>Projects</h1>
-    <p class="lead">Selected things I'm building and running.</p>
-  </section>
+<CollectionIndexLayout
+  title="Projects"
+  eyebrow="Portfolio"
+  intro="A collection of projects at the intersection of security, infrastructure, and software engineering."
+>
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    {
+      projectEntries.map((entry) => {
+        const Icon = iconMap[entry.data.icon];
+        const statusStyle = statusStyles[entry.data.statusTone];
 
-  {groups.map((g) => (
-    <section class="section">
-      <h2>{g.name}</h2>
-      <div class="card-grid">
-        {g.items.map((p) => (
-          <a class="card project" href={p.href} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — ${p.desc}`}>
-            <div class="project-head">
-              <span class="favicon-wrap">
-                <img src={iconUrl(p.href)} alt="" width="18" height="18" class="favicon" loading="eager" onerror="this.style.display='none'" />
+        return (
+          <article class="group relative overflow-hidden border border-white/10 bg-deep-space-card p-7 transition-colors duration-300 hover:border-accent-blue/50">
+            <div class="absolute inset-x-0 top-0 h-px bg-[linear-gradient(to_right,rgba(74,158,255,0),rgba(74,158,255,0.92),rgba(74,158,255,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div class="flex items-start justify-between gap-6">
+              <Icon class="mt-1 text-white/16" size={28} strokeWidth={1.4} />
+              <span class={`rounded-full px-3 py-1 font-display text-[10px] uppercase tracking-[0.22em] ${statusStyle}`}>
+                {entry.data.status}
               </span>
-              <span class="title">{p.title}</span>
             </div>
-            <p class="meta">{p.desc}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-  ))}
-</BaseLayout>
-
-<style>
-  .card.project { display: block; text-decoration: none; }
-  .card.project:hover { background: rgba(255,255,255,0.03); border-color: color-mix(in oklab, var(--link) 25%, var(--border)); }
-  .project-head { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
-  .favicon-wrap {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border);
-  }
-  [data-theme="light"] .favicon-wrap { background: rgba(0,0,0,0.04); }
-  .favicon { width: 16px; height: 16px; border-radius: 3px; }
-  .arrow { margin-left: auto; color: var(--muted); transition: transform .15s ease, color .15s ease; }
-  .card.project:hover .arrow { transform: translateX(2px); color: var(--text); }
-</style>
+            <h3 class="mt-14 break-words font-display text-[2rem] leading-none text-white sm:text-[2.1rem]">{entry.data.title}</h3>
+            <p class="mt-5 max-w-xs text-[1.05rem] leading-8 text-white/68">{entry.data.summary}</p>
+            <a
+              href={entry.data.href}
+              class="mt-12 inline-flex items-center gap-3 font-display text-[11px] uppercase tracking-[0.26em] text-white/58 transition-colors duration-300 hover:text-accent-blue"
+            >
+              View Project <ArrowRight size={14} />
+            </a>
+          </article>
+        );
+      })
+    }
+  </div>
+</CollectionIndexLayout>
