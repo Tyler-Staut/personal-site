@@ -16,4 +16,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  session: {
+    driver: {
+      entrypoint: "unstorage/drivers/null",
+    },
+  },
 });
