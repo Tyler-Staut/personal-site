@@ -65,7 +65,7 @@ export const mobileNav: NavLink[] = [
 export const heroContent: HeroContent = {
   eyebrow: "THE BOUNDARY IS",
   paragraph:
-    "Security engineer, builder, and explorer. I navigate the intersection of infrastructure, software, and security — pushing systems to their limits and bringing clarity back home.",
+    "AI & ML Expert, Security Engineer, and Professional Production Disruptor. I navigate the intersection of infrastructure, software, and security by pushing systems to their limits.",
   primaryCta: {
     href: "/projects/",
     label: "Explore Projects",
@@ -81,13 +81,13 @@ export const stats: StatBlockProps[] = [
   { value: `${new Date().getFullYear() - 2019}+`, label: "Years in Security" },
   { value: "25+", label: "Projects Built" },
   { value: "15+", label: "CTF Competitions" },
-  { value: "∞", label: "Cups of Coffee" },
+  { value: "Yes", label: "Cups of Coffee" },
 ];
 
 export const footerMeta: FooterMeta = {
   title: "Tyler Staut",
   description:
-    "Security engineer and builder. Navigating the intersection of infrastructure, software, and security.",
+    "Security Engineer focused on application and infrastructure security, machine learning and AI, and building resilient systems.",
 };
 
 export const footerDirectory: NavLink[] = [...siteNav];
