@@ -235,7 +235,7 @@ export default function HeroShell({
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.85, ease: aeonEase }}
-              className="relative flex h-[84px] w-[84px] items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_16px_48px_rgba(0,0,0,0.35)] sm:h-[110px] sm:w-[110px] lg:h-[136px] lg:w-[136px]"
+               className="relative flex h-[145px] w-[145px] items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_16px_48px_rgba(0,0,0,0.35)] sm:h-[185px] sm:w-[185px] lg:h-[225px] lg:w-[225px]"
             >
               <img src="/assets/tyler.png" alt="Tyler Staut" className="h-full w-full object-cover" />
             </motion.div>
