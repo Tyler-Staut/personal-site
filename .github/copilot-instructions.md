@@ -5,11 +5,13 @@ Welcome to the `personal-site` codebase! This document provides essential guidel
 ## 📂 Project Overview
 
 This project is a personal portfolio site built with the following technologies:
+
 - **Astro**: Static site generation framework.
 - **TypeScript**: Strongly typed JavaScript.
 - **Cloudflare Workers**: Deployment platform for edge computing.
 
 ### Key Features
+
 - **Bluesky Integration**: Fetches and displays recent posts from Bluesky.
 - **Responsive Design**: Optimized for various devices.
 - **Modern Web Standards**: Leveraging the latest tools and frameworks.
@@ -17,6 +19,7 @@ This project is a personal portfolio site built with the following technologies:
 ## 🛠️ Developer Workflows
 
 ### Local Development
+
 - **Start the development server**: `npm run dev`
   - Access the site at [http://localhost:4321](http://localhost:4321).
 - **Build for production**: `npm run build`
@@ -24,10 +27,12 @@ This project is a personal portfolio site built with the following technologies:
 - **Deploy to Cloudflare Workers**: `npm run deploy`
 
 ### Prerequisites
+
 - Node.js (v18+ recommended)
 - Wrangler CLI for Cloudflare Workers
 
 ### Code Formatting
+
 - Use `npm run format` to format the codebase with Prettier.
 
 ## 📐 Project Structure
@@ -50,14 +55,17 @@ This project is a personal portfolio site built with the following technologies:
 ## 🧩 Patterns and Conventions
 
 ### API Integration
+
 - The `src/pages/api/` directory contains serverless API routes.
 - Example: `bsky.json.ts` fetches data from the Bluesky API using the `BskyAgent` class from `@atproto/api`.
 
 ### Styling
+
 - Global styles are defined in `src/styles/global.css`.
 - Component-specific styles can be added in the same directory as the component.
 
 ### Data Management
+
 - Static data (e.g., site metadata) is stored in `src/data/`.
 - Example: `site.ts` contains metadata like the site title and description.
 

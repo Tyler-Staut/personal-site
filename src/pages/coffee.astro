@@ -1,0 +1,32 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import FrenchPressCalculator from '../components/FrenchPressCalculator';
+import V60Calculator from '../components/V60Calculator';
+---
+
+<SiteLayout title="Grounds Control | Tyler Staut" description="Coffee brewing parameters and calculators for V60 pourover and French press.">
+  <main class="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+    <section class="relative isolate overflow-hidden border border-white/10 bg-white/[0.03] p-8 sm:p-10 lg:p-14">
+      <div class="relative z-10">
+        <p class="font-display text-[11px] uppercase tracking-[0.28em] text-accent-blue">
+          // GROUNDS CONTROL
+        </p>
+        <h1 class="mt-5 max-w-4xl font-display text-[2.85rem] leading-none font-bold text-white sm:text-6xl lg:text-7xl">
+          Brew Parameters
+        </h1>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-white/76 sm:text-xl">
+          Precision-brewed coffee, guided by ratios, temperature, and timing.
+          Two methods, one mission: a better cup.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <V60Calculator client:load />
+    </section>
+
+    <section class="mt-12">
+      <FrenchPressCalculator client:load />
+    </section>
+  </main>
+</SiteLayout>
